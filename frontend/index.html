@@ -62,7 +62,14 @@
 
         </form>
         <br/><br/>
-        <div class="unlock-cta">
+        <button id="sign-in" class="signed-out" style="display: none">
+            Sign in with NEAR!
+          </button>
+          <p class="signed-in" style="display: none">
+            Signed in as <a id="account-id" href="https://wallet.testnet.near.org/profile" target="_blank"></a>
+            • <a href="#signout" id="sign-out">sign out</a>
+          </p>
+        <div>
             <div>
                 <p>
                     Please enter userID for additional signer and press ADD SIGNER to include an other party to your document.
@@ -81,8 +88,8 @@
             <br><br>
             <div id="status">
                 Web3.storage status: <span id="user-storage-status">🗷</span><br/>
-                Unlock user status: <span id="unlock-user-status">🗷</span><br/>
-                Withness status: <span id="unlock-withness-status">🗷</span><br/>
+                Near user status: <span id="near-user-status">🗷</span><br/>
+                Withness status: <span id="near-withness-status">🗷</span><br/>
             </div>
             
         </div>
@@ -90,6 +97,7 @@
 
     <script src="index.js"></script>
     <script src="web3.storage.js"></script>
+    <script src="./near.js"></script>
 </body>
 
 </html>
