@@ -1,4 +1,4 @@
-import { context, u128, PersistentMap } from "near-sdk-as";
+import { context, PersistentMap } from "near-sdk-as";
 
 const initDate = 1640995200000000000;
 

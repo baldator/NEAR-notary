@@ -5,7 +5,7 @@
 <head>
     <meta name="viewport" content="with=device-width, initial scale=1.0">
 
-    <title> Googli.eth </title>
+    <title> NEAR Notary </title>
     <link rel="stylesheet" href="Style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,17 +21,26 @@
     <nav>
 
         <h1>
-            <a href="index.html"><img src="assets/googli-logo.png" style="vertical-align: middle;" /><span>Googli.eth</span></a>
+            <a href="index.html"><img src="assets/googli-logo.png" style="vertical-align: middle;" /><span>NEAR Notary</span></a>
         </h1>
 
         <div class="nav-links">
             <ul class="top-menu">
                 <li><a href="documents.html">Documents</a></li>
-                <li><a href="">Product</a></li>
+                <li><a href="templates.html">Templates</a></li>
                 <li><a href="">Pricing</a></li>
                 <li><a href="">Developers</a></li>
                 <li><a href="">Doc</a></li>
-
+                <li>
+                    <button id="sign-in" class="file-upload-btn signed-out" style="display: none">
+                        Sign in with NEAR!
+                      </button>
+                    <p class="signed-in" style="display: none">
+                        Signed in as
+                        <a id="account-id" href="https://wallet.testnet.near.org/profile" target="_blank"></a>
+                        • <a href="#signout" id="sign-out">sign out</a>
+                    </p>
+                </li>
             </ul>
 
         </div>
@@ -44,13 +53,13 @@
             <div class="image-upload-wrap">
                 <input class="file-upload-input" id="filepicker" type='file' onchange="readURL(this);" required />
                 <div class="drag-text">
-                    <h3>Drag and drop a file or select add Image</h3>
+                    <h3>Drag and drop a file or select add Document</h3>
                 </div>
             </div>
             <div class="file-upload-content">
                 <img class="file-upload-image" src="#" alt="your image" />
                 <div class="image-title-wrap">
-                    <button type="button" onclick="removeUpload()" class="remove-image">Remove <spanclass="image-title">Uploaded Image</span></button>
+                    <button type="button" onclick="removeUpload()" class="remove-image">Remove <spanclass="image-title">Uploaded document</span></button>
                     <input type="submit" class="submit-image" value="Submit" id="submit" />
                 </div>
             </div>
@@ -62,42 +71,37 @@
 
         </form>
         <br/><br/>
-        <button id="sign-in" class="signed-out" style="display: none">
-            Sign in with NEAR!
-          </button>
-          <p class="signed-in" style="display: none">
-            Signed in as <a id="account-id" href="https://wallet.testnet.near.org/profile" target="_blank"></a>
-            • <a href="#signout" id="sign-out">sign out</a>
-          </p>
+
         <div>
             <div>
                 <p>
                     Please enter userID for additional signer and press ADD SIGNER to include an other party to your document.
                 </p>
-                <input type="email" id="newUserEmail" name="newUserEmail" placeholder='Add new users e-mail address here.' style="width: 33%;padding-top: 1.7%;
+                <input type="input" id="userId" name="userId" placeholder='Add a valid NEAR wallet' style="width: 33%;padding-top: 1.7%;
                 padding-bottom: 1.8%;">
-                <button style="width: 32%; margin: 0 auto;" class="file-upload-btn">
+                <button style="width: 32%; margin: 0 auto;" class="file-upload-btn" id="document-add-signer" onclick="documentAddSigner('user')">
                     ADD SIGNER
                 </button>
-                <button style="align-items: center; width: 32%; margin: 0 auto;" class="file-upload-btn">
-                        ADD WITNESS
+                <button style="align-items: center; width: 32%; margin: 0 auto;" class="file-upload-btn" id="document-add-witness" onclick="documentAddSigner('witness')">
+                    ADD WITNESS
                 </button>
             </div>
+            <ul id="signer-list">
+
+            </ul>
             <br><br>
-            
+
             <br><br>
             <div id="status">
-                Web3.storage status: <span id="user-storage-status">🗷</span><br/>
-                Near user status: <span id="near-user-status">🗷</span><br/>
-                Withness status: <span id="near-withness-status">🗷</span><br/>
+                Document upload status: <span id="user-storage-status">🗷</span><br/> Near user status: <span id="near-user-status">🗷</span><br/> Withness status: <span id="near-withness-status">🗷</span><br/> Total signers: <span id="near-withness-status">1</span><br/>
             </div>
-            
+
         </div>
 
 
-    <script src="index.js"></script>
-    <script src="web3.storage.js"></script>
-    <script src="./near.js"></script>
+        <script src="./index.js"></script>
+        <script src="web3.storage.js"></script>
+        <script src="./near.js"></script>
 </body>
 
 </html>

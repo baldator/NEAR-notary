@@ -42,3 +42,13 @@ function showLogin(document) {
     $("#login-status").show();
     $("#user-storage-status").text("✔️");
 }
+
+function documentAddSigner(type) {
+    var signer = $("#userId").value;
+    $("#signer-list").append('<li userId="' + signer + '" userType="' + type + '">' + signer + ' - ' + type + '</li>');
+    $("#userId").val("");
+
+    if (type == "witness") {
+        $("#document-add-witness").prop("disabled", true);
+    }
+}

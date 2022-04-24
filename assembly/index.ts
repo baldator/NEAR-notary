@@ -1,5 +1,5 @@
 // @nearfile
-import { Document, UserSignature, documentIdx, documents, accountToId, idToAccount } from './model';
+import { Document, UserSignature, ReturnObject, documentIdx, documents, accountToId, idToAccount } from './model';
 import { context, storage } from "near-sdk-as";
 
 
@@ -7,7 +7,7 @@ export function addDocument(hash: string, witness: string | null, users: string[
 
   const senderId = _accountToId(context.sender);
   const witnessId = witness ? _accountToId(witness) : 0;
-  const usersId = users ? users.map(user => _accountToId(user)) : [];
+  const usersId: u32[] = users ? users.map<u32>((user: string): u32 => _accountToId(user)) : [];
   let documentInd = storage.getPrimitive<u32>('dc', 0);
 
   const document = new Document(witnessId, usersId, senderId, hash);
@@ -16,20 +16,20 @@ export function addDocument(hash: string, witness: string | null, users: string[
   // add document to user documentIdx
   for (let i = 0; i < usersId.length; i++) {
     let userId = usersId[i];
-    let userDocIdx = documentIdx.get(userId, []);
+    let userDocIdx = documentIdx.get(userId, []) as u32[];
     userDocIdx.push(documentInd);
     documentIdx.set(userId, userDocIdx);
   }
 
   // add document to witness documentIdx
   if (witnessId) {
-    let witnessDocIdx = documentIdx.get(witnessId, []);
+    let witnessDocIdx = documentIdx.get(witnessId, []) as u32[];
     witnessDocIdx.push(documentInd);
     documentIdx.set(witnessId, witnessDocIdx);
   }
 
   // add document to sender documentIdx
-  let senderDocIdx = documentIdx.get(senderId, []);
+  let senderDocIdx = documentIdx.get(senderId, []) as u32[];
   senderDocIdx.push(documentInd);
   documentIdx.set(senderId, senderDocIdx);
 
@@ -45,7 +45,7 @@ export function addDocument(hash: string, witness: string | null, users: string[
 
 // Sign a document
 export function signDocument(documentId: u32, user: string): ReturnObject<UserSignature | null> | null {
-  const userId = _accountToId(user);
+  const userId = _accountToId(user) as u32;
   const document = _getDocument(documentId);
   if (!document) {
     return {
@@ -102,7 +102,7 @@ export function getDocument(id: u32): ReturnObject<Document | null> | null {
 
 export function getDocumentsByUserId(userId: u32): ReturnObject<Array<Document>> | null {
   const userDocIdx = documentIdx.get(userId, []);
-  const documents = userDocIdx.map(id => getDocument(id));
+  const documents = userDocIdx.map<Document>((id: u32): Document | null => getDocument(id));
   return {
     success: true,
     error_code: '',
@@ -148,7 +148,7 @@ function _getDocument(documentId: u32): Document | null {
 }
 
 // check if userId is creator, users or witness
-function _userCanSign(documentId, userId): boolean {
+function _userCanSign(documentId: u32, userId: u32): boolean {
   const document = _getDocument(documentId);
   if (!document) {
     return false;
@@ -159,7 +159,7 @@ function _userCanSign(documentId, userId): boolean {
   if (document.u.find(us => us.u == userId)) {
     return true;
   }
-  if (document.w == userId) {
+  if (document.w.u == userId) {
     return true;
   }
   return false;
