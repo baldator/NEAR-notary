@@ -15,84 +15,6 @@
     <script src="https://assets.inplayer.com/paywall/staging/paywall.min.js" data-unlock-url="https://paywall.unlock-protocol.com"></script>
 
     <script class="jsbin" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-
-    <script>
-        var unlockProtocolConfig = {
-            "network": "100", // Network ID (1 is for mainnet, 4 for rinkeby, 100 for xDai, etc)  
-            "locks": {
-                "0xb420D5671a44b8508FD2C9EE95245D5FC75Ccba2": {
-                    "name": "Googli.eth"
-                }
-            },
-            "icon": "https://unlock-protocol.com/static/images/svg/unlock-word-mark.svg",
-            "callToAction": {
-                "default": "Please Unlock for full features and reward options!"
-            },
-            metadataInputs: [{
-                name: 'Email Address',
-                type: 'email',
-                required: true,
-            }, {
-                name: 'First name',
-                type: 'text',
-                required: false,
-                public: true,
-            }, {
-                name: 'Last name',
-                type: 'text',
-                required: false,
-            }, {
-                name: 'Date of Birth',
-                type: 'date',
-                required: false,
-            } 
-        ],
-        }
-
-        let unlocked = false
-            // Once the doc has been loaded
-        window.addEventListener('DOMContentLoaded', event => {
-            //loadAds()
-            setTimeout(() => !unlocked && showLogout(document), 100)
-        })
-
-        window.addEventListener('unlockProtocol', function(e) {
-            var state = e.detail
-            if (state === 'locked') {
-                showLogout(document)
-            } else if (state === 'unlocked') {
-                unlocked = true
-                showLogin(document)
-            }
-        })
-    </script>
-
-    <script>
-        (function(d, s) {
-            var js = d.createElement(s),
-                sc = d.getElementsByTagName(s)[0];
-            js.src = "https://paywall.unlock-protocol.com/static/unlock.latest.min.js";
-            sc.parentNode.insertBefore(js, sc);
-        }(document, "script"));
-    </script>
-
-    <div id="comment-form"></div>
-    <script>
-        // Load JS variable values from PHP variables
-        var commentForm = "";
-        var commentCta = "";
-
-        // Listen to Unlock protocol API
-        window.addEventListener('unlockProtocol', function(e) {
-            var state = e.detail
-            if (state === 'unlocked') {
-                $('#comment-form').html(commentForm);
-            }
-            if (state === 'locked') {
-                $('#comment-form').html(commentCta)
-            };
-        });
-    </script>
 </head>
 
 <body>
@@ -155,14 +77,7 @@
                 </button>
             </div>
             <br><br>
-            <a href="#" onclick="window.unlockProtocol && unlockProtocol.loadCheckoutModal()">
-                <input type="checkbox" style="size: 15px;" id="userID" name="userName" value="signed">
-                <label for="userSigned" style="overflow: auto; justify-content: stretch;">
-                            <h3>BY CLICKING HERE YOU APPROVE AND VERIFY DOCUMENTS ON THIS PAGE.</h3>
-                            <h4>CLICKS WILL ONLY BE RECORDED IF YOU HAVE AN UNLOCK KEY.</h4>
-                            <h5>The system saves first the user then if they have clicked the box. If there is no user it will not record the results. Please sign up for full features and to earn rewards!</h5>
-                
-            </a>
+            
             <br><br>
             <div id="status">
                 Web3.storage status: <span id="user-storage-status">🗷</span><br/>
