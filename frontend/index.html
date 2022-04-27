@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-
 <html>
 
 <head>
@@ -11,8 +9,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;600;700&display=swap" rel="stylesheet">
 
-    <!-- Include this script in the <head> section of your page -->
-    <script src="https://assets.inplayer.com/paywall/staging/paywall.min.js" data-unlock-url="https://paywall.unlock-protocol.com"></script>
 
     <script class="jsbin" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 </head>
@@ -32,7 +28,7 @@
                 <li><a href="">Developers</a></li>
                 <li><a href="">Doc</a></li>
                 <li>
-                    <button id="sign-in" class="file-upload-btn signed-out" style="display: none">
+                    <button id="sign-in" class="googli-btn signed-out" style="display: none">
                         Sign in with NEAR!
                       </button>
                     <p class="signed-in" style="display: none">
@@ -48,7 +44,7 @@
 
     <div class="file-upload">
         <form id="upload-form">
-            <button class="file-upload-btn" type="button" onclick="$('.file-upload-input').trigger( 'click' )">Add Document</button>
+            <button class="file-upload-btn googli-btn" type="button" onclick="$('.file-upload-input').trigger( 'click' )">Add Document</button>
 
             <div class="image-upload-wrap">
                 <input class="file-upload-input" id="filepicker" type='file' onchange="readURL(this);" required />
@@ -79,10 +75,10 @@
                 </p>
                 <input type="input" id="userId" name="userId" placeholder='Add a valid NEAR wallet' style="width: 33%;padding-top: 1.7%;
                 padding-bottom: 1.8%;">
-                <button style="width: 32%; margin: 0 auto;" class="file-upload-btn" id="document-add-signer" onclick="documentAddSigner('user')">
+                <button style="width: 32%; margin: 0 auto;" class="googli-btn" id="document-add-signer" onclick="documentAddSigner('user')">
                     ADD SIGNER
                 </button>
-                <button style="align-items: center; width: 32%; margin: 0 auto;" class="file-upload-btn" id="document-add-witness" onclick="documentAddSigner('witness')">
+                <button style="align-items: center; width: 32%; margin: 0 auto;" class="googli-btn" id="document-add-witness" onclick="documentAddSigner('witness')">
                     ADD WITNESS
                 </button>
             </div>
@@ -93,15 +89,17 @@
 
             <br><br>
             <div id="status">
-                Document upload status: <span id="user-storage-status">🗷</span><br/> Near user status: <span id="near-user-status">🗷</span><br/> Withness status: <span id="near-withness-status">🗷</span><br/> Total signers: <span id="near-withness-status">1</span><br/>
+                Document upload status: <span id="user-storage-status">🗷</span><br/> Near user status: <span id="near-user-status">🗷</span><br/> Withness status: <span id="near-withness-status">🗷</span><br/> Total signers: <span id="near-signer-count">1</span><br/>
             </div>
 
+            <button style="align-items: center; width: 32%; margin: 0 auto;" class="googli-btn" id="create-document" onclick="createDocument()">
+                CREATE DOCUMENT
+            </button>
         </div>
 
-
-        <script src="./index.js"></script>
-        <script src="web3.storage.js"></script>
-        <script src="./near.js"></script>
+        <script type="module" src="web3.storage.js"></script>
+        <script src="near.js"></script>
+        <script type="module" src="index.js" defer></script>
 </body>
 
 </html>

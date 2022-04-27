@@ -109,7 +109,7 @@ nav img {
     padding: 100px;
 }
 
-.file-upload-btn {
+.googli-btn {
     width: 100%;
     margin: 0;
     color: #fff;
@@ -124,14 +124,14 @@ nav img {
     font-weight: 700;
 }
 
-.file-upload-btn:hover {
+.googli-btn:hover {
     background: #45108a;
     color: #ffffff;
     transition: all .2s ease;
     cursor: pointer;
 }
 
-.file-upload-btn:active {
+.googli-btn:active {
     border: 0;
     transition: all .2s ease;
 }

@@ -66,9 +66,8 @@ export function signDocument(documentId: u32, user: string): ReturnObject<UserSi
   }
 
 
-  // check if user is already signed
-  let userSignature = document.u.find(us => us.u == userId);
-  if (userSignature) {
+  // check if user has already signed
+  if (document.hasSigned(userId)) {
     return {
       success: false,
       error_code: '',
@@ -77,15 +76,15 @@ export function signDocument(documentId: u32, user: string): ReturnObject<UserSi
     };
   }
 
-  userSignature = new UserSignature(userId);
-  userSignature.signDocument();
-  document.u.push(userSignature);
+  let signature = new UserSignature(userId);
+  signature.signDocument();
+  document.u.push(signature);
   documents.set(documentId, document);
   return {
     success: true,
     error_code: '',
     error_message: '',
-    data: userSignature
+    data: signature
   };
 }
 
@@ -100,9 +99,37 @@ export function getDocument(id: u32): ReturnObject<Document | null> | null {
   };
 }
 
-export function getDocumentsByUserId(userId: u32): ReturnObject<Array<Document>> | null {
+export function getDocumentIds(user: string): ReturnObject<Array<Document | null>> | null {
+  const userId = _accountToId(user);
   const userDocIdx = documentIdx.get(userId, []);
-  const documents = userDocIdx.map<Document>((id: u32): Document | null => getDocument(id));
+  if (userDocIdx == []) {
+    return {
+      success: true,
+      error_code: '',
+      error_message: '',
+      data: []
+    };
+  }
+  const documents = userDocIdx!.map<Document | null>((id: u32): Document | null => _getDocument(id));
+  return {
+    success: true,
+    error_code: '',
+    error_message: '',
+    data: documents
+  };
+}
+
+export function getDocumentsByUserId(userId: u32): ReturnObject<Array<Document | null>> | null {
+  const userDocIdx = documentIdx.get(userId, []);
+  if (userDocIdx == []) {
+    return {
+      success: true,
+      error_code: '',
+      error_message: '',
+      data: []
+    };
+  }
+  const documents = userDocIdx!.map<Document | null>((id: u32): Document | null => _getDocument(id));
   return {
     success: true,
     error_code: '',
@@ -156,7 +183,7 @@ function _userCanSign(documentId: u32, userId: u32): boolean {
   if (document.s == userId) {
     return true;
   }
-  if (document.u.find(us => us.u == userId)) {
+  if (document.hasSigned(userId)) {
     return true;
   }
   if (document.w.u == userId) {

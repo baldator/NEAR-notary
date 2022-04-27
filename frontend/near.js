@@ -4,6 +4,7 @@ import * as nearAPI from "near-api-js"
 import getConfig from "./config"
 
 window.nearConfig = getConfig(process.env.NODE_ENV || "development");
+const BOATLOAD_OF_GAS = 100000000000000;
 
 // Initializing contract
 async function initContract() {
@@ -21,9 +22,9 @@ async function initContract() {
     window.contract = await window.near.loadContract(nearConfig.contractName, {
         // NOTE: This configuration only needed while NEAR is still in development
         // View methods are read only. They don't modify the state, but usually return some value.
-        viewMethods: ['whoSaidHi'],
+        viewMethods: ['getDocument', 'getDocumentsByUserId', 'isDocumentComplete', 'getDocumentIds'],
         // Change methods can modify the state. But you don't receive the returned value when called.
-        changeMethods: ['sayHi'],
+        changeMethods: ['addDocument', 'signDocument'],
         // Sender is the account ID to initialize transactions.
         sender: window.accountId,
     });
@@ -79,34 +80,24 @@ function signedInFlow() {
         // Forcing redirect.
         window.location.replace(window.location.origin + window.location.pathname);
     });
-
-    // fetch who last said hi without requiring button click
-    // but wait a second so the question is legible
-    setTimeout(updateWhoSaidHi, 1000);
-}
-
-// Function to update who said hi
-function updateWhoSaidHi() {
-    // JavaScript tip:
-    // This is another example of how to use promises. Since this function is not async,
-    // we can't await for `contract.whoSaidHi()`, instead we attaching a callback function
-    // usin `.then()`.
-    contract.whoSaidHi().then((who) => {
-        const el = document.getElementById('who');
-        el.innerText = who || 'No one';
-
-        // only link to profile if there's a profile to link to
-        if (who) {
-            el.href = 'https://explorer.testnet.near.org/accounts/' + who;
-        }
-
-        // change the ? to a !
-        const parent = el.parentNode;
-        parent.innerHTML = parent.innerHTML.replace('?', '!');
-    });
 }
 
 // Loads nearAPI and this contract into window scope.
 window.nearInitPromise = initContract()
     .then(doWork)
     .catch(console.error);
+
+window.checkAccount = function(accountId) {
+    console.log(config.nodeUrl)
+}
+
+window.createDocument = function() {
+    console.log("createDocument");
+    const documentHash = "aaaaaaa";
+    const documentWitness = "balda.testnet";
+    const documentSigners = ["balda.testnet"];
+    window.contract.addDocument({ hash: documentHash, witness: documentWitness, users: documentSigners },
+        BOATLOAD_OF_GAS,
+        0
+    ).then((obj) => { console.log(JSON.stringify(obj)) });
+}

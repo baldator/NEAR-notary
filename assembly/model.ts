@@ -26,6 +26,27 @@ export class Document {  // class written to chain as JSON, hence the short vari
     let senderSig = new UserSignature(sender);
     this.u.push(senderSig);
   }
+
+  isSigner(userId: u32): boolean {
+    for (var _i = 0; _i < this.u.length; _i++) {
+        let user = this.u[_i];
+        if (user.u == userId) {
+            return true;
+        }
+    }
+    return false;
+  
+  }
+
+  hasSigned(userId: u32): boolean {
+    for (var _i = 0; _i < this.u.length; _i++) {
+        let user = this.u[_i];
+        if (user.u == userId && user.c != 0) {
+            return true;
+        }
+    }
+    return false;
+  }
 }
 
 @nearBindgen
