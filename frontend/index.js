@@ -1,5 +1,6 @@
 import "./import-jquery";
 import "jquery-ui-dist/jquery-ui.js";
+require('bootstrap');
 
 window.readURL = function readURL(input) {
     if (input.files && input.files[0]) {
@@ -32,12 +33,14 @@ window.showLogout = function showLogout(document) {
     $(".log-status").hide();
     $("#logout-status").show();
     $("#user-storage-status").text("🗷");
+    isSubmitEnabled();
 }
 
 window.showLogin = function showLogin(document) {
     $(".log-status").hide();
     $("#login-status").show();
     $("#user-storage-status").text("✔️");
+    isSubmitEnabled();
 }
 
 window.documentAddSigner = function documentAddSigner(type) {
@@ -52,4 +55,17 @@ window.documentAddSigner = function documentAddSigner(type) {
     }
     const count = parseInt($("#near-signer-count").text()) + 1;
     $("#near-signer-count").text(count);
+    isSubmitEnabled();
+}
+
+window.isSubmitEnabled = function isSubmitEnabled(){
+    var status = $(".submit-status").text().includes("🗷");
+    if (status){
+        $("#signMessageBtn").prop('disabled', true);
+    }
+    else{
+        $("#signMessageBtn").prop('disabled', false);
+
+    }
+    return !status;
 }

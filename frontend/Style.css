@@ -106,7 +106,6 @@ nav img {
     left: 50%;
     right: 50%;
     margin: 0 auto;
-    padding: 100px;
 }
 
 .googli-btn {
@@ -122,6 +121,13 @@ nav img {
     outline: none;
     text-transform: uppercase;
     font-weight: 700;
+}
+
+button:disabled,
+button[disabled]{
+color: #fff;
+    background-color: #6c757d;
+    border-color: #6c757d;
 }
 
 .googli-btn:hover {

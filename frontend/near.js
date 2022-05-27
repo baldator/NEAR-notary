@@ -3,6 +3,7 @@ import "regenerator-runtime/runtime";
 import * as nearAPI from "near-api-js"
 import getConfig from "./config"
 
+
 window.nearConfig = getConfig(process.env.NODE_ENV || "development");
 const BOATLOAD_OF_GAS = 100000000000000;
 
@@ -93,11 +94,19 @@ window.checkAccount = function(accountId) {
 
 window.createDocument = function() {
     console.log("createDocument");
+    
+    $("#signMessage").toast("show");
     const documentHash = "aaaaaaa";
     const documentWitness = "balda.testnet";
     const documentSigners = ["balda.testnet"];
     window.contract.addDocument({ hash: documentHash, witness: documentWitness, users: documentSigners },
         BOATLOAD_OF_GAS,
         0
-    ).then((obj) => { console.log(JSON.stringify(obj)) });
+    ).then((obj) => { 
+        console.log(JSON.stringify(obj)) 
+        $("#signMessageOk").toast("show");
+    }).catch(err => {
+        console.log(JSON.stringify(err));
+        $("#signMessageKo").toast("show");
+    });
 }

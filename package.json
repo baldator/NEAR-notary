@@ -23,9 +23,13 @@
         "parcel-bundler": "^1.12.5"
     },
     "dependencies": {
+        "@popperjs/core": "^2.11.5",
+        "babel-polyfill": "^6.26.0",
+        "bootstrap": "5",
         "jquery": "^3.6.0",
         "near-api-js": "^0.43.1",
-        "regenerator-runtime": "^0.13.9"
+        "regenerator-runtime": "^0.13.9",
+        "web3.storage": "^4.2.0"
     },
     "jest": {
         "testPathIgnorePatterns": [
