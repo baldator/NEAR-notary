@@ -1,22 +1,20 @@
-# googli.eth
-HackFS 2021 project
+# NEAR Notary
 
-Creating a secure platform for people to easily back up their data and have it returned in an easily viewable format from any device. 
+This project was initially coded on Ethereum and was presented to HackFS 2021.
+It has been ported to NEAR as part of the NEAR certified developper certification.
 
-securing the files on a single paged website saved in an NFT through IPFS distributed storage.
+The aim of the project is to provide a decentralized solution to document signing and certification. 
 
-storage costs are refunded at the end of the storage term. 
+## Safe document storage
 
-funds in the platform will be invested into secure staking with profits going back into the protocol. 
+NEAR notary leverage the public IPFS network (through web3.storage) to store documents. Users don't have to care about storing and backing up their documents as this feature is provided by the underlying technology. 
 
-rewards paid out to users in the sites native coin. 
+## Document templating
 
-frontend react, css, javascript site will be deployed in a docker container on IPFS through IPNS. 
+NEAR notary provide standard documents customizable templates. Users can quickly create documents by entering few details and save time.
 
-Javascript will upload the files, take the hashes, create single page and mint the file to an nft. 
+## Next steps
 
-attach googli.ee domain to domain ens.
-
-solidity, hard hat, npm, openzeppelin for the backend.
-    - staking site divides rewards between users by amount staked with Dao governance tokens.   
-
+* Implement documents browsing;
+* Implement document encryption;
+* Implement NFT minting to store encrypted info needed to access the file: NFT won't act as an authorization token and token transfer won't grant access to the file to the new owner;
