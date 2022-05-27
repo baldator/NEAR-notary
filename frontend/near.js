@@ -96,9 +96,14 @@ window.createDocument = function() {
     console.log("createDocument");
     
     $("#signMessage").toast("show");
-    const documentHash = "aaaaaaa";
-    const documentWitness = "balda.testnet";
-    const documentSigners = ["balda.testnet"];
+    const documentHash = $("#file-cid").val();
+    const documentWitness = $("#signer-list li[usertype='witness']").attr("userid");;
+    const documentSigners = $("#signer-list li[usertype!='witness']").map(function() {
+        return $(this).attr("userid");
+    }).get();
+    console.log("document: " + documentHash);
+    console.log("witness: " + documentWitness);
+    console.log("signers: " + documentSigners);
     window.contract.addDocument({ hash: documentHash, witness: documentWitness, users: documentSigners },
         BOATLOAD_OF_GAS,
         0
