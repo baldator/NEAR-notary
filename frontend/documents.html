@@ -2,35 +2,48 @@
 
 <html>
 
-<head>
-    <meta name="viewport" content="with=device-width, initial scale=1.0">
-
-    <title> Googli.eth </title>
-    <link rel="stylesheet" href="Style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;600;700&display=swap" rel="stylesheet">
-
-</head>
+    <head>
+        <meta name="viewport" content="with=device-width, initial scale=1.0">
+    
+        <title> NEAR Notary </title>
+        <link rel="stylesheet" href="Style.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;600;700&display=swap" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+        
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    </head>
 
 <body>
     <section class="header">
         <nav>
 
             <h1>
-                <a href="index.html"><img src="assets/googli-logo.png" style="vertical-align: middle;" /><span>Googli.eth</span></a>
+                <a href="index.html"><img src="assets/googli-logo.png" style="vertical-align: middle;" /><span>NEAR Notary</span></a>
             </h1>
 
             <div class="nav-links">
                 <ul class="top-menu">
-                    <li class="selected"><a href="documents.html">Documents</a></li>
+                    <li><a href="documents.html">Documents</a></li>
                     <li><a href="templates.html">Templates</a></li>
                     <li><a href="">Pricing</a></li>
                     <li><a href="">Developers</a></li>
                     <li><a href="">Doc</a></li>
-
+                    <li>
+                        <button id="sign-in" class="googli-btn signed-out" style="display: none">
+                            Sign in with NEAR!
+                          </button>
+                        <p class="signed-in" style="display: none">
+                            Signed in as
+                            <a id="account-id" href="https://wallet.testnet.near.org/profile" target="_blank"></a>
+                            • <a href="#signout" id="sign-out">sign out</a>
+                        </p>
+                    </li>
                 </ul>
-
+    
             </div>
         </nav>
         <div class="text-box">
