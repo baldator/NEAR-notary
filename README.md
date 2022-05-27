@@ -16,5 +16,6 @@ NEAR notary provide standard documents customizable templates. Users can quickly
 ## Next steps
 
 * Implement documents browsing;
+* Improve UI;
 * Implement document encryption;
 * Implement NFT minting to store encrypted info needed to access the file: NFT won't act as an authorization token and token transfer won't grant access to the file to the new owner;
